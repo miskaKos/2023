@@ -11,28 +11,51 @@ discord: Misa K.
 """
 oddelovac = ("-" * 30)
 
-username = input("username:")
-password = input("password:")
+# username = input("username:")
+# password = input("password:")
 
 users = ['bob', 'ann', 'mike', 'liz']
 passwords =['123', 'pass123', 'password123', 'pass123']
 
-if username in ((users)[0]) and password in ((passwords)[0]):
-    print('access allowed')
-elif username in ((users)[1]) and password in ((passwords)[1]):
-    print('access allowed')
-elif username in ((users)[2]) and password in ((passwords)[2]):
-    print('access allowed')
-elif username in ((users)[3]) and password in ((passwords)[3]):
-    print('access allowed')
-else:
-    print('unregistered user, terminating the program..')
-    quit()
+users = ['bob', 'ann', 'mike', 'liz']
+passwords =['123', 'pass123', 'password123', 'pass123']
+
+prihlasovani = True
+
+while prihlasovani:
+    username = input("username:")
+    if username in users:
+        index = users.index(username)
+        password = input('password: ')
+
+        if username in ((users)[index]) and password in ((passwords)[index]):
+            # print('Welcome')
+            prihlasovani = False
+        else:
+            print('The password you have entered is incorrect')
+            continue
+    else:
+        print('unregistered user, terminating the program..')
+        quit()
+    break
+
+# if username in ((users)[0]) and password in ((passwords)[0]):
+#     print('access allowed')
+# elif username in ((users)[1]) and password in ((passwords)[1]):
+#     print('access allowed')
+# elif username in ((users)[2]) and password in ((passwords)[2]):
+#     print('access allowed')
+# elif username in ((users)[3]) and password in ((passwords)[3]):
+#     print('access allowed')
+# else:
+#     print('unregistered user, terminating the program..')
+#     quit()
 
 print(oddelovac)
 
 print("Welcome to the app,", username)
 print("We have 3 texts to be analyzed.")
+
 
 text1 = """
 Situated about 10 miles west of Kemmerer,
@@ -71,7 +94,9 @@ garpike and stingray are also present.
 print(oddelovac)
 
 text_number = input("Enter a number btw. 1 and 3 select: ")
-  
+
+print(oddelovac)
+
     
 if text_number == "1":
     text = text1
@@ -187,7 +212,7 @@ if text_number in ["1","2","3"]:
     values = counts.values()
     pocet_znaku_max = max(values)
     
-    print(f"", "LEN", "|", "OCCURENCES".center(pocet_znaku_max), "|", "NR.")
+    print("LEN", "|", "OCCURENCES".center(pocet_znaku_max), "|", "NR.")
 
     print(oddelovac)
             
