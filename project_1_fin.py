@@ -1,6 +1,6 @@
 """
 
-projekt_1.py: první projekt do Engeto Online Python Akademie
+projekt_1_fin.py: první projekt do Engeto Online Python Akademie
 
 author: Michaela Kosova
 
