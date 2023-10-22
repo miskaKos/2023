@@ -35,21 +35,11 @@ while prihlasovani:
             print('The password you have entered is incorrect')
             continue
     else:
+        password = input('password: ')
         print('unregistered user, terminating the program..')
         quit()
     break
 
-# if username in ((users)[0]) and password in ((passwords)[0]):
-#     print('access allowed')
-# elif username in ((users)[1]) and password in ((passwords)[1]):
-#     print('access allowed')
-# elif username in ((users)[2]) and password in ((passwords)[2]):
-#     print('access allowed')
-# elif username in ((users)[3]) and password in ((passwords)[3]):
-#     print('access allowed')
-# else:
-#     print('unregistered user, terminating the program..')
-#     quit()
 
 print(oddelovac)
 
@@ -233,57 +223,3 @@ else:
     quit()
 
 
-
-
-#users = {}
-#user1 = {"username": "bob", "password": "123"}
-#user2 = {"username": "ann", "password": "pass123"}
-#user3 = {"username": "mike", "password": "password123"}
-#user4 = {"username": "liz", "password": "pass123"}
-
-#users = {'user1': {},'user2': {},'user3': {}, 'user4': {}}
-
-#users["user1"] = user1
-#users["user2"] = user2
-#users["user3"] = user3
-#users["user4"] = user4
-
-#users = {
-#    'bob': {'password': '123'},
-#   'ann': {'password': 'pass123'},
-#    'nike': {'password': 'password123'},
-#    'mike': {'password': 'pass123'},
-#}
-
-#if username in users and password == users[username][password]:
-#        print('access allowed')
-#else:
-#        print('unregistered user, terminating the program..')
-#        quit()
-
-
-
-#user_input = input('Enter your username: ')
-#while:
-#    if user_input in users:
-#        password = input('Enter the password: ')
-
-#        if password == users[user_input]['password']:
-#            print('Welcome')
-#        else:
-#            print('The password you have entered is incorrect')
-#            continue
-#    else:
-#        print('The username does not exist')
-#        continue
-#    break
-
-#if username and password in user1 or user2 or user3 or user4:
-#    print('Welcome!')
-#else:
-#    print('unregistered user, terminating the program..')
-#    quit()
-
-
-# if uzivatel.get(jmeno) == heslo:
-# employees['employee03'].items()
