@@ -11,12 +11,6 @@ discord: miskaKos
 """
 oddelovac = ("-" * 30)
 
-# username = input("username:")
-# password = input("password:")
-
-users = ['bob', 'ann', 'mike', 'liz']
-passwords =['123', 'pass123', 'password123', 'pass123']
-
 users = ['bob', 'ann', 'mike', 'liz']
 passwords =['123', 'pass123', 'password123', 'pass123']
 
@@ -29,7 +23,7 @@ while prihlasovani:
         password = input('password: ')
 
         if username in ((users)[index]) and password in ((passwords)[index]):
-            # print('Welcome')
+            print('Welcome')
             prihlasovani = False
         else:
             print('The password you have entered is incorrect')
@@ -41,13 +35,7 @@ while prihlasovani:
     break
 
 
-print(oddelovac)
-
-print("Welcome to the app,", username)
-print("We have 3 texts to be analyzed.")
-
-
-text1 = """
+TEXTS = ['''
 Situated about 10 miles west of Kemmerer,
 Fossil Butte is a ruggedly impressive
 topographic feature that rises sharply
@@ -55,22 +43,16 @@ some 1000 feet above Twin Creek Valley
 to an elevation of more than 7500 feet
 above sea level. The butte is located just
 north of US 30N and the Union Pacific Railroad,
-which traverse the valley.
-"""
-
-text2 = """
-At the base of Fossil Butte are the bright
+which traverse the valley. ''',
+'''At the base of Fossil Butte are the bright
 red, purple, yellow and gray beds of the Wasatch
 Formation. Eroded portions of these horizontal
 beds slope gradually upward from the valley floor
 and steepen abruptly. Overlying them and extending
 to the top of the butte are the much steeper
 buff-to-white beds of the Green River Formation,
-which are about 300 feet thick.
-"""
-
-text3 = """
-The monument contains 8198 acres and protects
+which are about 300 feet thick.''',
+'''The monument contains 8198 acres and protects
 a portion of the largest deposit of freshwater fish
 fossils in the world. The richest fossil fish deposits
 are found in multiple limestone layers, which lie some
@@ -78,32 +60,65 @@ are found in multiple limestone layers, which lie some
 represent several varieties of perch, as well as
 other freshwater genera and herring similar to those
 in modern oceans. Other fish such as paddlefish,
-garpike and stingray are also present.
-"""
+garpike and stingray are also present.'''
+]
 
 print(oddelovac)
 
-text_number = input("Enter a number btw. 1 and 3 select: ")
+print("Welcome to the app,", username)
+print(f'We have {len(TEXTS)} texts to be analyzed.')
 
 print(oddelovac)
 
-    
-if text_number == "1":
-    text = text1
-elif text_number == "2":
-    text = text2
-elif text_number == "3":
-    text = text3
+text_number = input(f'Enter a number btw. 1 and {len(TEXTS)} select: ')
 
-oddelovac = ("-" * 30)
+if not text_number.isnumeric():
+    print("Once more") 
+    quit()
+else:
+    text_number = int(text_number)
 
+if text_number < 1 or text_number > len(TEXTS):
+    print("Your choice is not in list")
+    quit()
 
-if text_number in ["1","2","3"]:
+elif text_number > 1 or text_number < len(TEXTS):
+
+    text = TEXTS[int(text_number) - 1]
+
+    print(oddelovac)
+
     vycistena_slova = []
+    slova_velke = []
+    slova_vse_velke = []
+    slova_vse_male = []
+    cisla_v_textu = []
+    delky_slov = []
 
     for slovo in text.split():
+        # pocet slov
         cislo_slovo = slovo.strip('.,:;!?_')
         vycistena_slova.append(cislo_slovo)
+        
+        # prvni velke
+        prvni_velke = slovo.istitle()
+        slova_velke.append(prvni_velke)
+
+        # vse velke
+        vse_velke = slovo.isupper() and slovo.isalpha()
+        slova_vse_velke.append(vse_velke)
+
+        #  vse male
+        vse_male = slovo.islower()
+        slova_vse_male.append(vse_male)
+
+        #  cisla v textu
+        cisla = slovo.isnumeric()
+        cisla_v_textu.append(cisla)
+
+        # delky slov
+        cislo_slovo = slovo.strip('.,:;!?_')
+        delky_slov.append(len(cislo_slovo)) 
 
     pocet_slov = 0
 
@@ -111,12 +126,6 @@ if text_number in ["1","2","3"]:
         pocet_slov += 1
         
     print("There are", pocet_slov, "words in the selected text.")
-
-    slova_velke = []
-
-    for slovo in text.split():
-        prvni_velke = slovo.istitle()
-        slova_velke.append(prvni_velke)
 
     pocet_velke = 0
 
@@ -126,13 +135,6 @@ if text_number in ["1","2","3"]:
         
     print("There are", pocet_velke, "titlecase words.")
 
-    slova_vse_velke = []
-
-    for slovo in text.split():
-        vse_velke = slovo.isupper() and slovo.isalpha()
-        slova_vse_velke.append(vse_velke)
-
-
     pocet_vse_velke = 0
 
     for slovo in slova_vse_velke:
@@ -140,12 +142,6 @@ if text_number in ["1","2","3"]:
             pocet_vse_velke += 1
 
     print("There are", pocet_vse_velke, "uppercase words.")
-
-    slova_vse_male = []
-
-    for slovo in text.split():
-        vse_male = slovo.islower()
-        slova_vse_male.append(vse_male)
 
     pocet_vse_male = 0
 
@@ -155,13 +151,6 @@ if text_number in ["1","2","3"]:
 
     print("There are", pocet_vse_male, "lowercase words.")
 
-
-    cisla_v_textu = []
-
-    for slovo in text.split():
-        cisla = slovo.isnumeric()
-        cisla_v_textu.append(cisla)
-
     pocet_cisla = 0
 
     for slovo in cisla_v_textu:
@@ -169,7 +158,6 @@ if text_number in ["1","2","3"]:
             pocet_cisla += 1
 
     print("There are", pocet_cisla, "numeric strings.")
-
 
     emp_lis = []
     for z in text.split():
@@ -183,12 +171,6 @@ if text_number in ["1","2","3"]:
     print("The sum of all numbers", soucet)
 
     print(oddelovac)
-
-    delky_slov = []
-
-    for slovo in text.split():
-        cislo_slovo = slovo.strip('.,:;!?_')
-        delky_slov.append(len(cislo_slovo)) 
 
     counts = dict()
 
@@ -212,13 +194,6 @@ if text_number in ["1","2","3"]:
 
     print(oddelovac)
    
-    
-elif not text_number.isnumeric():
-    print("Once more") 
-    quit()
-elif text_number not in ["1", "2", "3"]:
-    print("Your choice is not in list")
-    quit()
 else:
     quit()
 
