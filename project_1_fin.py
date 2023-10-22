@@ -6,7 +6,7 @@ author: Michaela Kosova
 
 email: kosova.m@outlook.cz
 
-discord: Misa K.
+discord: miskaKos
 
 """
 oddelovac = ("-" * 30)
