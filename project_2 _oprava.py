@@ -1,5 +1,5 @@
 """
-project_2_fin.py: druhy projekt do Engeto Online Python Akademie
+project_2_fin_oprava.py: druhy projekt do Engeto Online Python Akademie
 
 author: Michaela Kosova
 
