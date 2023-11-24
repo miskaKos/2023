@@ -1,0 +1,33 @@
+if text_number == 1;
+    text = text1;
+    print (text.Analyza_textu())
+
+
+
+text = text1;    
+vycistena_slova = []
+
+    for slovo in text.split():
+        cislo_slovo = slovo.strip('.,:;!?_')
+        vycistena_slova.append(cislo_slovo)
+
+    pocet_slov = 0
+
+    for slovo in vycistena_slova:
+        pocet_slov += 1
+    
+    print("There are", pocet_slov, "words in the selected text.")
+
+    slova_velke = []
+
+    for slovo in text.split():
+        prvni_velke = slovo.istitle()
+        slova_velke.append(prvni_velke)
+
+    pocet_velke = 0
+
+    for slovo in slova_velke:
+        if slovo == True:
+            pocet_velke += 1
+    
+    print("There are", pocet_velke, "words in the selected text.")

@@ -60,8 +60,6 @@ while nevhodne_cislo:
                 break
     if duplikat == False:
         nevhodne_cislo = False
-        
-print(cislo_nahodne)
 
 # Kontrola spravnosti zadaneho cisla
 
@@ -78,7 +76,7 @@ while hra_bezi:
         dotazovani = Pokračuj
         if dotazovani == True:
             print(Text)
-     
+   
 
 # Vyhodnocovani tipu uzivatele
 

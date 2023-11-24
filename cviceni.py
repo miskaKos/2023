@@ -8,6 +8,9 @@ for cislo in seznam:
 print(soucet)
 
 
+# soucet = sum(seznam)
+# print(soucet)
+
 # 2. Napište kód, který zkontroluje, zda je jméno přítomno ve slovníku a pokud ano, vypište přidružený věk.
 data = {"Jan": 30, "Marie": 25, "Petr": 35}
 

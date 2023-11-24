@@ -1,0 +1,4 @@
+txt_soubor = (prvni_radek = "První řádek v souboru,\n"
+druhy_radek = "druhý řádek v souboru,\n"
+treti_radek = "třetí řádek v souboru.")
+

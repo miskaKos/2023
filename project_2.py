@@ -8,7 +8,9 @@ email: kosova.m@outlook.cz
 discord: miskaKos
 
 """
-# Pozdrav
+# Program pozdraví užitele a vypíše úvodní text
+# Program dále vytvoří tajné 4místné číslo (číslice musí být unikátní a nesmí začínat 0)
+
 oddelovac = ("-" * 30)
 
 
@@ -17,32 +19,32 @@ print(oddelovac)
 print("I've generated a random 4 digit number for you. \nLet's play a bulls and cows game.")
 print(oddelovac)
 
-# Generovani nahodneho cisla
-
 import random
 
-def generovani_cisla() -> int:
-    cislo_1 = random.randint(1, 9)
+cislo = random.randint(1000, 10000)
+
+
+cislo_1 = random.randint(1, 9)
+cislo_2 = random.randint(0, 9)
+cislo_3 = random.randint(0, 9)
+cislo_4 = random.randint(0, 9)
+
+
+
+while cislo_1 == cislo_2:       
     cislo_2 = random.randint(0, 9)
+
+while cislo_3 == cislo_1 or cislo_3 == cislo_2:
     cislo_3 = random.randint(0, 9)
+
+while cislo_4 == cislo_1 or cislo_4 == cislo_2 or cislo_4 == cislo_3:
     cislo_4 = random.randint(0, 9)
 
-    while cislo_1 == cislo_2:       
-        cislo_2 = random.randint(0, 9)
-
-    while cislo_3 == cislo_1 or cislo_3 == cislo_2:
-        cislo_3 = random.randint(0, 9)
-
-    while cislo_4 == cislo_1 or cislo_4 == cislo_2 or cislo_4 == cislo_3:
-        cislo_4 = random.randint(0, 9)
-
-    cislo_nahodne = str(cislo_1) + str(cislo_2) + str(cislo_3) + str(cislo_4)    
-    return cislo_nahodne
-
-cislo_generovane = generovani_cisla()
+cislo_generovane = str(cislo_1) + str(cislo_2) + str(cislo_3) + str(cislo_4)
 print(cislo_generovane)
 
-# Kontrola spravnosti zadaneho cisla
+# Hráč hádá číslo. Program jej upozorní, pokud zadá číslo kratší nebo delší než 4 čísla, 
+# pokud bude obsahovat duplicity, začínat nulou, příp. obsahovat nečíselné znaky
 
 hra_bezi = True
 pocet_hadani = 0
@@ -54,7 +56,7 @@ while hra_bezi:
         pocet_hadani += 1
         
     while dotazovani: 
-        stejne_cisla = False
+        sameNumbers = False
         zadane_cislo = input("Enter a number: ")
         if not zadane_cislo.isnumeric():
             print("Once more")
@@ -69,13 +71,15 @@ while hra_bezi:
             for j in range (i+1,len(zadane_cislo)):
                 if zadane_cislo[i] == zadane_cislo[j]:
                     print("Same numbers")
-                    stejne_cisla = True
+                    sameNumbers = True
                     break
-        if stejne_cisla == False:
-            dotazovani = False              
-                     
+        if sameNumbers == False:
+            dotazovani = False           
 
-# Vyhodnocovani tipu uzivatele
+# Program vyhodnotí tip uživatele
+# Program dále vypíše počet bull/ bulls (pokud uživatel uhodne jak číslo, tak jeho umístění), 
+# příp. cows/ cows (pokud uživatel uhodne pouze číslo, ale ne jeho umístění).
+# Vrácené ohodnocení musí brát ohled na jednotné a množné číslo ve výstupu. Tedy 1 bull a 2 bulls (stejně pro cow/cows).    
     bulls = 0
     cows = 0     
     

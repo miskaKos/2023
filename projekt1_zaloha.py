@@ -1,3 +1,63 @@
+"""
+
+projekt_1.py: první projekt do Engeto Online Python Akademie
+
+author: Michaela Kosova
+
+email: kosova.m@outlook.cz
+
+discord: Misa K.
+
+"""
+oddelovac = ("-" * 30)
+
+# username = input("username:")
+# password = input("password:")
+
+users = ['bob', 'ann', 'mike', 'liz']
+passwords =['123', 'pass123', 'password123', 'pass123']
+
+users = ['bob', 'ann', 'mike', 'liz']
+passwords =['123', 'pass123', 'password123', 'pass123']
+
+prihlasovani = True
+
+while prihlasovani:
+    username = input("username:")
+    if username in users:
+        index = users.index(username)
+        password = input('password: ')
+
+        if username in ((users)[index]) and password in ((passwords)[index]):
+            # print('Welcome')
+            prihlasovani = False
+        else:
+            print('The password you have entered is incorrect')
+            continue
+    else:
+        password = input('password: ')
+        print('unregistered user, terminating the program..')
+        quit()
+    break
+
+# if username in ((users)[0]) and password in ((passwords)[0]):
+#     print('access allowed')
+# elif username in ((users)[1]) and password in ((passwords)[1]):
+#     print('access allowed')
+# elif username in ((users)[2]) and password in ((passwords)[2]):
+#     print('access allowed')
+# elif username in ((users)[3]) and password in ((passwords)[3]):
+#     print('access allowed')
+# else:
+#     print('unregistered user, terminating the program..')
+#     quit()
+
+print(oddelovac)
+
+print("Welcome to the app,", username)
+print("We have 3 texts to be analyzed.")
+
+
 text1 = """
 Situated about 10 miles west of Kemmerer,
 Fossil Butte is a ruggedly impressive
@@ -32,9 +92,12 @@ in modern oceans. Other fish such as paddlefish,
 garpike and stingray are also present.
 """
 
+print(oddelovac)
 
 text_number = input("Enter a number btw. 1 and 3 select: ")
-  
+
+print(oddelovac)
+
     
 if text_number == "1":
     text = text1
@@ -72,7 +135,7 @@ if text_number in ["1","2","3"]:
         if slovo == True:
             pocet_velke += 1
         
-    print("There are", pocet_velke, "words in the selected text.")
+    print("There are", pocet_velke, "titlecase words.")
 
     slova_vse_velke = []
 
@@ -132,10 +195,6 @@ if text_number in ["1","2","3"]:
 
     print(oddelovac)
 
-    print(f"", "LEN", "|", "OCCURENCES".center(), "|", "NR.")
-
-    print(oddelovac)
-
     delky_slov = []
 
     for slovo in text.split():
@@ -150,13 +209,21 @@ if text_number in ["1","2","3"]:
             
         else: 
             counts[cislo] = counts[cislo] + 1
-        
-    for key, value in sorted(counts.items()):
 
-        print(f"", str(key).rjust(3), "|", ("*" * value), "|".rjust(13 - value), value)
+    values = counts.values()
+    pocet_znaku_max = max(values)
+    
+    print("LEN", "|", "OCCURENCES".center(pocet_znaku_max), "|", "NR.")
 
     print(oddelovac)
+            
+    for key, value in sorted(counts.items()):
 
+        print(str(key).rjust(3), "|", ("*" * value), "|".rjust(pocet_znaku_max - value + 1), value)
+
+    print(oddelovac)
+   
+    
 elif not text_number.isnumeric():
     print("Once more") 
     quit()
@@ -165,3 +232,59 @@ elif text_number not in ["1", "2", "3"]:
     quit()
 else:
     quit()
+
+
+
+
+#users = {}
+#user1 = {"username": "bob", "password": "123"}
+#user2 = {"username": "ann", "password": "pass123"}
+#user3 = {"username": "mike", "password": "password123"}
+#user4 = {"username": "liz", "password": "pass123"}
+
+#users = {'user1': {},'user2': {},'user3': {}, 'user4': {}}
+
+#users["user1"] = user1
+#users["user2"] = user2
+#users["user3"] = user3
+#users["user4"] = user4
+
+#users = {
+#    'bob': {'password': '123'},
+#   'ann': {'password': 'pass123'},
+#    'nike': {'password': 'password123'},
+#    'mike': {'password': 'pass123'},
+#}
+
+#if username in users and password == users[username][password]:
+#        print('access allowed')
+#else:
+#        print('unregistered user, terminating the program..')
+#        quit()
+
+
+
+#user_input = input('Enter your username: ')
+#while:
+#    if user_input in users:
+#        password = input('Enter the password: ')
+
+#        if password == users[user_input]['password']:
+#            print('Welcome')
+#        else:
+#            print('The password you have entered is incorrect')
+#            continue
+#    else:
+#        print('The username does not exist')
+#        continue
+#    break
+
+#if username and password in user1 or user2 or user3 or user4:
+#    print('Welcome!')
+#else:
+#    print('unregistered user, terminating the program..')
+#    quit()
+
+
+# if uzivatel.get(jmeno) == heslo:
+# employees['employee03'].items()
