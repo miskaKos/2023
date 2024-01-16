@@ -14,17 +14,49 @@ def zpracuj_odpoved_serveru(url: str) -> bs:
     return bs(odpoved_serveru.text, features="html.parser")
 
 def najdi_tabulku(rozdelene_html: bs) -> bs4.element.ResultSet:
-    tabulky = rozdelene_html.find("div", {"id": "inner"})
-    return tabulky.find_all("table")
+    tabulky = rozdelene_html.find("div", {"id": "inner"}, )
+    # return tabulky
+    # return tabulky.find_all("table", {"class": "table"})
+    return tabulky.find_all("tr")
+
+def zpracuj_tr(tr: bs4.element.Tag) -> dict:
+    radky = (tr.get_text).splitlines()
+    # radky = [r.('') for r in radky]
+    d = {
+        "cislo": ,
+        "nazev":
+    }
+    print(radky)
+
+# def najdi_sloupce_obec(vsechny_tabulky: bs) -> bs4.element.ResultSet:
+#     # vsechny_tr = vsechny_tabulky.find_all("tr")
+#     seznam = list()
+#     for tr in vsechny_tabulky[2:]:
+#         td_na_radku = tr.find_all("td")
+#         data_obce = (td_na_radku[0].text, td_na_radku[1].text, td_na_radku[2].text)
+#         seznam.append(data_obce)
+#         return seznam
+#         # return (td_na_radku[0].text, td_na_radku[1].text, td_na_radku[2].text)
+    
+#     # data_hrace = vyber_atributy_z_radku(td_na_radku)
+#     # vysledky.append(data_hrace)
 
 def main(url: str):
     rozdelene_html = zpracuj_odpoved_serveru(url)
     vsechny_tabulky = najdi_tabulku(rozdelene_html)
-    print(vsechny_tabulky)
+    for tr in vsechny_tabulky[2: -2]:
+        zpracuj_tr(tr)
+    # print(vsechny_tabulky[2:])
+    # sloupce_obec = najdi_sloupce_obec(vsechny_tabulky)
+    # print(sloupce_obec)
+
 
 if __name__ == "__main__":
     url = "https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103"
     main(url)
+
+
+    
 
 # odpoved_serveru = requests.get(url)
 
@@ -37,12 +69,10 @@ if __name__ == "__main__":
 # print(a)
 
 # najit vsechny radky tabulky ze stranky
-
-
 # table_tag_top = rozdelene_html.find("table", {"class": "table"})
 # vsechny_tr = table_tag_top.find_all("tr")
 
-# # najit vybrane sloupce z tabulku
+# # najit vybrane sloupce z tabulky
 # for tr in vsechny_tr[2:]:
 #     td_na_radku = tr.find_all("td")
 #     print(td_na_radku[0].text, td_na_radku[1].text)
@@ -67,13 +97,6 @@ if __name__ == "__main__":
 #         "nazev_obce": td_na_radku[1].text
 #     }
 
-# udaje_obci = [
-#     vyber_atributy_z_radku(tr.find_all("td"))
-#     for tr in vsechny_tr[1:]
-# ]    
-
-# print(udaje_obci)
-
 
 
 # precte obsah stranky 
@@ -90,16 +113,8 @@ if __name__ == "__main__":
 # for child in rozdelene_html.body.children:
 #     print(child)
 
-# nazev_obce = rozdelene_html.find_all("td class='overflow_name'")
-# print(nazev_obce)
-
-
 # boxes = soup.find_all
 
-# get_obce = function(obec_link):
-#     obec_html = read.html(obec_link)
-
-# volby = data.frame(nazev, kod, strany)
 
 # write.csv(volby, "prostejov.csv")
 
