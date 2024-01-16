@@ -13,20 +13,50 @@ def zpracuj_odpoved_serveru(url: str) -> bs:
     odpoved_serveru = requests.get(url)
     return bs(odpoved_serveru.text, features="html.parser")
 
-def najdi_tabulku(rozdelene_html: bs) -> bs4.element.ResultSet:
-    tabulky = rozdelene_html.find("div", {"id": "inner"}, )
+def najdi_radky(rozdelene_html: bs) -> bs4.element.ResultSet:
+    radky = rozdelene_html.find("div", {"id": "inner"}, )
+    # tabulky = rozdelene_html.select("oveflow_name")
+    # tabulky = rozdelene_html.find("table", {"class": "table"})
     # return tabulky
     # return tabulky.find_all("table", {"class": "table"})
-    return tabulky.find_all("tr")
+    # return radky.find_all("tr")
+    return radky.find_all("td")
 
-def zpracuj_tr(tr: bs4.element.Tag) -> dict:
-    radky = (tr.get_text).splitlines()
+
+def zpracuj_sloupce(sloupec: bs4.element.Tag):
+    sloupce = (sloupec.text).splitlines()
+
+    # sloupce = sloupec.get_text(separator).splitlines()
+    # print(sloupce) 
+    return sloupce 
+
+# def urob_list():
+#     for sloupec in vsechny_radky:
+#         vxa = zpracuj_sloupce(sloupec)
+#         vxa2 = vxa[0]
+#         listik = "".join(vxa2)
+#     return listik
+
+    
+   
     # radky = [r.('') for r in radky]
-    d = {
-        "cislo": ,
-        "nazev":
-    }
-    print(radky)
+    # d = {
+    #     "cislo": sloupce.readlines[0](sloupce[1]),
+    #     "nazev": sloupce.readlines[1](sloupce[2])
+    # }
+    # return d
+
+# def vyber_atributy_z_radku(td_na_radku: "bs4.element.ResultSet") -> dict:
+#     """
+#     Z kazdeho radku (tr) vyber urcite bunky (td)[index])
+#     a zabal je do slovniku
+    
+#     :return: dict
+#     """
+#     return {
+#         "cislo_obce": td_na_radku[1].text,
+#         "nazev_obce": td_na_radku[2].text
+    # }
 
 # def najdi_sloupce_obec(vsechny_tabulky: bs) -> bs4.element.ResultSet:
 #     # vsechny_tr = vsechny_tabulky.find_all("tr")
@@ -43,11 +73,26 @@ def zpracuj_tr(tr: bs4.element.Tag) -> dict:
 
 def main(url: str):
     rozdelene_html = zpracuj_odpoved_serveru(url)
-    vsechny_tabulky = najdi_tabulku(rozdelene_html)
-    for tr in vsechny_tabulky[2: -2]:
-        zpracuj_tr(tr)
-    # print(vsechny_tabulky[2:])
-    # sloupce_obec = najdi_sloupce_obec(vsechny_tabulky)
+    vsechny_radky = najdi_radky(rozdelene_html)
+
+    for sloupec in vsechny_radky:
+        vxa = zpracuj_sloupce(sloupec)
+        vxa2 = vxa[0]
+        listik = "".join(vxa2)
+        print(listik)
+
+
+    # seznam = []
+    # for tr in vsechny_radky[1:]:
+    #     td_na_radku = tr.find_all("td")
+    #     print(td_na_radku[2].text)
+        # data_obce = vyber_atributy_z_radku(td_na_radku)
+        # seznam.append(data_obce)
+
+    # for sloupec in vsechny_radky:
+    #     vxa = zpracuj_sloupce(sloupec)
+    #     print(vxa)
+    # sloupce_obec = zpracuj_sloupce(vsechny_radky)
     # print(sloupce_obec)
 
 
@@ -74,8 +119,7 @@ if __name__ == "__main__":
 
 # # najit vybrane sloupce z tabulky
 # for tr in vsechny_tr[2:]:
-#     td_na_radku = tr.find_all("td")
-#     print(td_na_radku[0].text, td_na_radku[1].text)
+#     
 
 # table_tag_top = soup.find("table", {"class": "tab_top"})  # <table></table>
 # vsechny_tr = table_tag_top.find_all("tr")
