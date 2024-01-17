@@ -67,12 +67,12 @@ cisla_obci = []
 for polozka in list:
     if polozka.isdigit():
         cisla_obci.append(polozka)
-print(cisla_obci)
+# print(cisla_obci)
 
 for polozka in list:
     if polozka.istitle() and len(polozka) > 1:
         nazvy_obci.append(polozka)
-print(nazvy_obci)
+# print(nazvy_obci)
 
 
 podklady_odkazy = obec_seznam.select('.center a')
@@ -80,6 +80,18 @@ podklady_odkazy = obec_seznam.select('.center a')
 odkazy = ["https://volby.cz/pls/ps2017nss/" + obec_seznam['href'] for obec_seznam in podklady_odkazy]
 # print(odkazy)
 
+d_pole = []
+
 for index in range(0, len(nazvy_obci)):
     d = {"cislo_obce": cisla_obci[index], "nazev_obce": nazvy_obci[index], "odkaz": odkazy[index]}
-    print(d)
+    d_pole.append(d)
+
+# print(type(d_pole))
+
+# def uloz_seznam_do_json(d_pole: list):
+#     with open("vysledek.json", mode="w", encoding="utf-8") as f:
+#         json.dump(d_pole, f)
+
+json_soubor = open("vysledek.json", mode="w")
+json.dump(d_pole, json_soubor)
+json_soubor.close()
