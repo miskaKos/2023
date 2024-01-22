@@ -14,11 +14,12 @@ soup = bs(r.text, features="html.parser")
 # print(soup.prettify)
 
 obec_seznam = soup.find("div", {"id": "inner"})
-# print(obec_seznam)
+print(type(obec_seznam))
 
 
 #  novy pokus td
 vsechny_td = obec_seznam.find_all("td")
+# print(type(vsechny_td))
 list = []
 for i in vsechny_td:
     if i:
@@ -39,7 +40,7 @@ for polozka in list:
 podklady_odkazy = obec_seznam.select('.center a')
 # print(podklady_odkazy)
 odkazy = ["https://volby.cz/pls/ps2017nss/" + obec_seznam['href'] for obec_seznam in podklady_odkazy]
-# print(odkazy)
+print(type(odkazy))
 
 d_pole = []
 for index in range(0, len(nazvy_obci)):

@@ -475,14 +475,16 @@ Maecenas gravida turpis nec ultrices aliquet."""
     
 # vysledek = uloz_emailove_adresy(text)  
 
-seznam = []
-for slovo in text.split():
-    orezane_slovo = slovo.strip(",.:;")
-    seznam.append(orezane_slovo)
+# seznam = []
+# for slovo in text.split():
+#     orezane_slovo = slovo.strip(",.:;")
+#     seznam.append(orezane_slovo)
 
-print(seznam)
+# print(seznam)
 
 
-prvni_radek = "První řádek v souboru,\n"
-druhy_radek = "druhý řádek v souboru,\n"
-treti_radek = "třetí řádek v souboru."
+# prvni_radek = "První řádek v souboru,\n"
+# druhy_radek = "druhý řádek v souboru,\n"
+# treti_radek = "třetí řádek v souboru."
+
+

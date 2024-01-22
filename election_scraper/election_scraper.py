@@ -6,7 +6,6 @@ import requests
 import bs4 
 from bs4 import BeautifulSoup as bs
 
-
 # url = "https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103"
 
 def zpracuj_odpoved_serveru(url: str) -> bs:
@@ -24,10 +23,11 @@ def najdi_radky(rozdelene_html: bs) -> bs4.element.ResultSet:
 
 
 def zpracuj_sloupce(sloupec: bs4.element.Tag):
-    sloupce = (sloupec.text).splitlines()
-
-    # sloupce = sloupec.get_text(separator).splitlines()
-    # print(sloupce) 
+#     # sloupce = (sloupec.text).splitlines()
+#     sloupce = (sloupec.text).split()
+    sloupce = (sloupec.get_text())
+#     # sloupce = sloupec.get_text(separator).splitlines()
+#     # print(sloupce) 
     return sloupce 
 
 # def urob_list():
@@ -74,13 +74,26 @@ def zpracuj_sloupce(sloupec: bs4.element.Tag):
 def main(url: str):
     rozdelene_html = zpracuj_odpoved_serveru(url)
     vsechny_radky = najdi_radky(rozdelene_html)
-
     for sloupec in vsechny_radky:
         vxa = zpracuj_sloupce(sloupec)
-        vxa2 = vxa[0]
-        listik = "".join(vxa2)
-        print(listik)
+        print(vxa)
+        # for elem in vxa:
+        #     elem.append(listik)
+        #     print(listik)
 
+
+    # for string in vxa:
+    #     sloucit = "\n".join(string)
+    #     print(sloucit)
+    #     # vxa2 = vxa[0]
+    #     listik = "\n".join(vxa)
+    #     # seznam = []
+    #     # for polozka in listik:
+    #     #     if polozka.isnumeric:
+    #     #         polozka.append(seznam)
+        
+    #     print(listik)
+    #     # print(listik2)
 
     # seznam = []
     # for tr in vsechny_radky[1:]:
@@ -99,9 +112,7 @@ def main(url: str):
 if __name__ == "__main__":
     url = "https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103"
     main(url)
-
-
-    
+ 
 
 # odpoved_serveru = requests.get(url)
 
@@ -140,7 +151,6 @@ if __name__ == "__main__":
 #         "cislo_obce": td_na_radku[0].text,
 #         "nazev_obce": td_na_radku[1].text
 #     }
-
 
 
 # precte obsah stranky 
