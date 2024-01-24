@@ -66,22 +66,22 @@ def zapis_data(data: list, jmeno_souboru: str) -> str:
     """
     try:
         csv_soubor = open(jmeno_souboru, mode="w", encoding="utf-8")
-        nazvy_sloupcu = ["code", "location"]
-        # sloupce = data[0].keys()   
+        # nazvy_sloupcu = ["code", "location"]
+        sloupce = data[0].keys()   
     except FileExistsError:
         return traceback.format_exc()
     except IndexError:
         return traceback.format_exc()
     else:
-        zapis = csv.DictWriter(csv_soubor, fieldnames = nazvy_sloupcu)
+        zapis = csv.DictWriter(csv_soubor, dialect="excel-tab", fieldnames = sloupce)
         zapis.writeheader()
         zapis.writerows(data)
         return "Saved"
     finally:
         csv_soubor.close()
 
-# zapis_csv = zapis_data(d_pole, "vysledky_prostejov.csv")
-# print(zapis_csv)
+zapis_csv = zapis_data(d_pole, "vysledky_prostejov.csv")
+print(zapis_csv)
         
 
 for odkaz in range(3): #odkazy:

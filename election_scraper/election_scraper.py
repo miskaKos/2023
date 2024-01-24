@@ -172,3 +172,59 @@ if __name__ == "__main__":
 
 # write.csv(volby, "prostejov.csv")
 
+#!/bin/env python
+# from csv     import reader
+# from os.path import isfile
+# from sys     import argv, exit
+
+# def quit():
+#     print "\nStiskni ENTER pro konec..."
+#     raw_input()
+#     exit()
+
+# def main():
+#     if  len(argv) < 2:
+#         print "Zadej CSV soubor jako parametr."
+#         quit()
+
+#     csvPath = argv[1]
+
+#     if  not isfile(csvPath):
+#         print "Soubor '%s' neexistuje." % csvPath
+#         quit()
+
+#     csvFile = open(csvPath, 'rb')
+#     parser  = reader(csvFile, dialect='excel', delimiter=';')
+
+#     html = ['<table>']
+
+#     for i, row in enumerate(parser):
+#         eo = 'odd' if i % 2 else 'even'
+#         html.append('  <tr class="%s row%d">' % (eo, i))
+#         for j, cell in enumerate(row):
+#             cell = cell.replace('&', '&amp;')
+#             cell = cell.replace('<', '&lt;')
+#             html.append('    <td class="col%d cell%d-%d">%s</td>' % (j, i, j, cell))
+#         html.append('  </tr>')
+
+#     html.append('</table>')
+
+#     htmlTxt = '\n'.join(html)
+
+#     htmlFile = open(csvPath + '.html', 'wt')
+#     htmlFile.write(htmlTxt)
+#     htmlFile.close()
+
+#     print "\n\nHOTOVO"
+#     quit()
+
+# try:
+#     print "Konverze csv souboru do html tabulky."
+#     print "Copyright (c) 2007, Petr Mach, gsl@seznam.cz"
+#     print "Licence: GPL v 2.0, http://www.gnu.org/…gpl-2.0.html"
+#     print
+#     main()
+# except Exception, e:
+#     print "\n\nZACHYCENA CHYBA V PROGRAMU:\n"
+#     print e
+#     quit()

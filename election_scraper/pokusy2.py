@@ -1,3 +1,4 @@
+import os 
 import sys
 sys.argv
 import csv
@@ -163,14 +164,29 @@ def main(url: str):
     fin_cast_2 = vytvor_list_fin_cast_2(fin_cast_1, platne_hlasy_strany)
     # print(fin_cast_2[:2])
 
-    with open("prostejov.csv", "w", encoding='UTF8', newline='' ) as f:
-        write = csv.writer(f, delimiter = "|", dialect="excel-tab")
+    data_testovani = [['506761', 'Alojzov', '205', '145', '144', '29', '0', '0', '9', '0', '5', '17', '4', '1', '1', '0', '0', '18', '0', '5', '32', '0', '0', '6', '0', '0', '1', '1', '15', '0'], ['589268', 'Bedihošť', '834', '527', '524', '51', '0', '0', '28', '1', '13', '123', '2', '2', '14', '1', '0', '34', '0', '6', '140', '0', '0', '26', '0', '0', '0', '0', '82', '1'], ['589276', 'Bílovice-Lutotín', '431', '279', '275', '13', '0', '0', '32', '0', '8', '40', '1', '0', '4', '0', '0', '30', '0', '3', '83', '0', '0', '22', '0', '0', '0', '1', '38', '0']]
+
+    with open("vysledky_prostejov.csv", "w", encoding='UTF-8-sig', newline='' ) as f:
+        write = csv.writer(f, delimiter= ";")
+        # write = csv.writer(f, dialect="excel-tab")
+        # write = csv.writer(f, dialect='excel')
 
         write.writerow(hlavicka)
         write.writerows(fin_cast_2)
+
+    with open("vysledky_prostejov.csv") as csv_soubor:
+        csv_data = csv.reader(csv_soubor)
+
+
+    # skuska = pd.DataFrame(hlavicka, 
+    #                       columns = [data_testovani])
+    # skuska.to_csv.excel_tab("prostejov2.csv", index="False")
+    # print(fin_cast_2)
         
     # zapis_csv = zapis_data(hlavicka, fin_cast_2, "vysledky_prostejov.csv")
     
+    # files_dir = sys.argv[1]
+    # output_dir = sys.argv[2]
                   
 if __name__ == "__main__":
     url = "https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103"
