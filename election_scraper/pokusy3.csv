@@ -16,8 +16,15 @@ import csv
 import requests
 import bs4 
 from bs4 import BeautifulSoup as bs
+import traceback
 
 parser = argparse.ArgumentParser()
+# parser.add_argument(
+#     "--url", type = str, help = "Odkaz na web k scrapovani"
+# )
+# parser.add_argument(
+#     "--csv_name", type = str, help = "nazev csv souboru"
+# )
 
 parser.add_argument('url', help = 'Odkaz na web')
 parser.add_argument('csv_name', help = 'nazev csv')
@@ -26,11 +33,11 @@ def zpracuj_odpoved_serveru(url: str) -> bs:
     r = requests.get(url)
     return bs(r.text, features="html.parser")
 
-# pomoci find nadefinovani parametru tabulky na webu
+
 def najdi_tabulku(soup: bs) -> bs4.element.Tag:
     return soup.find("div", {"id": "inner"})
     
-# pomoci find_all vytvoreni listu s cisly a nazvy obci
+
 def najdi_nazvy_cisla_obci(obec_seznam: bs4.element.Tag) -> list:
     nazvy_obci = []
     cisla_obci = []
@@ -45,12 +52,12 @@ def najdi_nazvy_cisla_obci(obec_seznam: bs4.element.Tag) -> list:
       
     return nazvy_obci, cisla_obci
     
-# pomoci select vytvoreni odkazu na dalsi udaje o hlasovani k jednotlivym obcim
+
 def vytvor_odkazy_obce_jednotlive(obec_seznam: bs4.element.Tag) -> list:
     podklady_odkazy = obec_seznam.select('.cislo a')
     return ["https://volby.cz/pls/ps2017nss/" + obec_seznam['href'] for obec_seznam in podklady_odkazy]
 
-# vytvoreni listu s pocty volicu, vydanych obalek, odevzdanych obalek a platnych hlasu v jednotlivych obcich
+
 def vytvor_pocty_seznam_list(r2: requests.models.Response) -> list:
     location_soup = bs(r2.text, features="html.parser")
     cisla_seznam = location_soup.find("table", {"id": "ps311_t1"})
@@ -61,7 +68,7 @@ def vytvor_pocty_seznam_list(r2: requests.models.Response) -> list:
     cisla_seznam_list = [r.replace("\xa0", "") for r in cisla_seznam_list]
     return cisla_seznam_list
 
-# pomoci find_all vytvoreni seznamu platnych hlasu dle politickych stran v jednotlivych obcich
+
 def najdi_seznam_platne_hlasy(r2: requests.models.Response) -> list:
     location_soup = bs(r2.text, features="html.parser")
     strany_seznam = location_soup.find("div", {"id": "inner"})
@@ -84,7 +91,7 @@ def najdi_seznam_platne_hlasy(r2: requests.models.Response) -> list:
 
     return platne_hlasy_1 + platne_hlasy_2   
  
-# vytvoreni listu s nazvy vsech politickych stran
+
 def najdi_seznam_pol_stran(r2: requests.models.Response) -> list:
     nazvy_stran_soup = bs(r2.text, features="html.parser")
     nazvy_stran_seznam = nazvy_stran_soup.find("div", {"id": "inner"})
@@ -98,7 +105,7 @@ def najdi_seznam_pol_stran(r2: requests.models.Response) -> list:
     
     return nazvy_stran
 
-# vytvoreni prvni casti finalni tabulky pro export s obsahem cisla obci, nazvy obci, volici v seznamu, odevzdane obalky, platne hlasy
+
 def vytvor_list_fin_cast_1(cisla_obci, nazvy_obci, registred, envelopes, valid: list) -> list:
     fin_cast_1 = []
     for index in range(0, len(cisla_obci)):
@@ -106,18 +113,50 @@ def vytvor_list_fin_cast_1(cisla_obci, nazvy_obci, registred, envelopes, valid: 
         fin_cast_1.append(p)
     return fin_cast_1
 
-# pripojeni hlasu dle politickych stran k tabulce fin_cast_1 --> vytvoreni finalni tabulky
 def vytvor_list_fin_cast_2(fin_cast_1: list, platne_hlasy_strany: list) -> list:
+    # fin_cast_2 = []
     for index in range(0, len(fin_cast_1)):
         fin_cast_1[index].extend(platne_hlasy_strany[index])
     return fin_cast_1
 
+#  def uloz_seznam_do_json(udaje: list):
+#     with open("vysledek.json", mode="w", encoding="utf-8") as f:
+#         json.dump(udaje, f)
+
+# json_soubor = open("vysledek.json", mode="w")
+# json.dump(d_pole, json_soubor)
+# json_soubor.close()
+
+# zapis_json = uloz_seznam_do_json(d_pole)
+# print(zapis_json)
+
+def zapis_data(hlavicka, fin_cast_2: list, jmeno_souboru: str) -> str:
+    """
+    Zkus zapsat udaje z par. 'data' do souboru formatu .csv.
+    """
+    try:
+        csv_soubor = open(jmeno_souboru, mode="w", encoding="utf-8")
+        sloupce = hlavicka
+    except FileExistsError:
+        return traceback.format_exc()
+    except IndexError:
+        return traceback.format_exc()
+    else:
+        zapis = csv.DictWriter(csv_soubor, dialect="excel", fieldnames = sloupce)
+        zapis.writeheader()      
+        zapis.writerows(fin_cast_2)
+        return "Saved"
+    finally:
+        csv_soubor.close()
+
+    return zapis_data(hlavicka, fin_cast2, jmeno_souboru)
         
 # def main(url: str, csv_name: str):
 def main():
     args = parser.parse_args()
 
-    if (args.url == "" or args.csv_name == ""):
+    # if (args.url == "" or args.csv_name == ""):
+    if not args.url or not args.csv_name:
         print("Pro spousteni chybi povinny argument.")
         sys.exit(1)    
     else:
@@ -142,13 +181,16 @@ def main():
         valid.append(cisla_seznam_list[7])
         platne_hlasy_strany.append(najdi_seznam_platne_hlasy(r2))
 
-
+    # nazvy_stran_test = ['Občanská demokratická strana', 'Řád národa - Vlastenecká unie', 'CESTA ODPOVĚDNÉ SPOLEČNOSTI', 'Česká str.sociálně demokrat.', 'Radostné Česko', 'STAROSTOVÉ A NEZÁVISLÍ', 'Komunistická str.Čech a Moravy', 'Strana zelených', 'ROZUMNÍ-stop migraci,diktát.EU', 'Strana svobodných občanů', 'Blok proti islam.-Obran.domova', 'Občanská demokratická aliance', 'Česká pirátská strana', 'Referendum o Evropské unii', 'TOP 09', 'ANO 2011', 'Dobrá volba 2016', 'SPR-Republ.str.Čsl. M.Sládka', 'Křesť.demokr.unie-Čs.str.lid.', 'Česká strana národně sociální', 'REALISTÉ', 'SPORTOVCI', 'Dělnic.str.sociální spravedl.', 'Svob.a př.dem.-T.Okamura (SPD)', 'Strana Práv Občanů']
     hlavicka = ['code', 'location', 'registred', 'envelopes', 'valid']
     hlavicka.extend(nazvy_stran)
+    # print(hlavicka)
     fin_cast_1 = vytvor_list_fin_cast_1(cisla_obci, nazvy_obci, registred, envelopes, valid)
     fin_cast_2 = vytvor_list_fin_cast_2(fin_cast_1, platne_hlasy_strany)
-   
-    
+    # print(fin_cast_2[:2])
+
+    # data_testovani = [['506761', 'Alojzov', '205', '145', '144', '29', '0', '0', '9', '0', '5', '17', '4', '1', '1', '0', '0', '18', '0', '5', '32', '0', '0', '6', '0', '0', '1', '1', '15', '0'], ['589268', 'Bedihošť', '834', '527', '524', '51', '0', '0', '28', '1', '13', '123', '2', '2', '14', '1', '0', '34', '0', '6', '140', '0', '0', '26', '0', '0', '0', '0', '82', '1'], ['589276', 'Bílovice-Lutotín', '431', '279', '275', '13', '0', '0', '32', '0', '8', '40', '1', '0', '4', '0', '0', '30', '0', '3', '83', '0', '0', '22', '0', '0', '0', '1', '38', '0']]
+
     with open(args.csv_name, "w", encoding='UTF-8-sig', newline='' ) as f:
         write = csv.writer(f, delimiter= ";")
         # write = csv.writer(f, dialect="excel-tab")
@@ -176,8 +218,6 @@ def main():
     # sys.exit(1)
     # else:
     #     print("Program pokračuje..")
-        
-
     
                       
 if __name__ == "__main__":
