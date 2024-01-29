@@ -1,26 +1,26 @@
 <!-- Engeto-pa-3-projekt -->
 Election_scraper je třetím projektem do Engeto Online Python Akademie
 
-<!-- Popis projektu -->
+## Popis projektu
 Tento projekt slouží k získání výsledků z parlamentních voleb uskutečněných v roce 2017, odkaz k nahlédnutí naleznete [zde](https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103).
 
-<!-- Instalace knihoven -->
+## Instalace knihoven
 Knihovny, které jsou použité v kódu projektu, jsou uložené v souboru requirements.txt. 
 Pro jejich instalaci je vhodné použít nové virtuální prostředí a s nainstalovaným manažerem spustit dle níže uvedeného postupu:
 
-$ pip3 --version                        overim verzi manazeru
-$ pip3 install -r requirements.txt      nainstalujeme knihovny
+$ pip3 --version                         # overim verzi manazeru
+$ pip3 install -r requirements.txt       # nainstalujeme knihovny
 
-<!-- Spuštění projektu -->
+## Spuštění projektu
 Pro správné spuštění souboru election_scraper.py v příkazovém řádku jsou potřebné dva povinné argumenty, a to:
 
-python election_scraper.py <odkaz-uzemniho-celku> <vysledny-soubor>
+**python election_scraper.py <odkaz-uzemniho-celku> <vysledny-soubor>**
 
 Následně budou staženy výsledky voleb zvolené obce jako "csv" soubor.
 
 Pro správné otevření csv souboru v MS Excel byl použitý k zapisování dat do "csv" delimiter ";" [election_scraper.py řádek 153]
 
-<!-- Ukazka projektu -->
+## Ukázka projektu
 Výsledky hlasování pro okres Prostějov:
 - je potřebné zadat dva povinné argumenty, a to:
 1. argument: "https://volby.cz/pls/ps2017nss/ps32?xjazyk=CZ&xkraj=12&xnumnuts=7103"
